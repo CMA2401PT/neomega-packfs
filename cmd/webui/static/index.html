@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PackFS 文件管理</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">PACKFS</p><h1 id="container">容器文件</h1></div>
+      <div class="summary"><span id="size">正在读取…</span><button id="refresh" type="button">刷新</button></div>
+    </header>
+    <section class="panel snapshots" aria-label="快照管理">
+      <div class="view-picker">
+        <label for="snapshot">浏览版本</label>
+        <select id="snapshot"><option value="">当前工作树</option></select>
+        <span id="readonly" class="badge" hidden>快照 · 只读</span>
+      </div>
+      <div class="actions">
+        <button id="snapshot-create" type="button" data-edit>创建快照</button>
+        <button id="snapshot-restore" type="button">恢复所选快照</button>
+        <button id="snapshot-delete" type="button" class="danger">删除所选快照</button>
+      </div>
+    </section>
+    <section class="panel browser" aria-label="目录浏览">
+      <div class="browser-heading">
+        <nav id="breadcrumbs" aria-label="目录路径"></nav>
+        <a id="download-directory" class="button" href="/api/download?path=.">下载此目录 ZIP</a>
+      </div>
+      <div class="toolbar">
+        <div class="actions">
+          <button id="mkdir" type="button" data-edit>新建目录</button>
+          <button id="upload-files" type="button" data-edit>上传文件</button>
+          <button id="upload-folder" type="button" data-edit>上传文件夹</button>
+          <input id="files" type="file" multiple hidden>
+          <input id="folder" type="file" webkitdirectory multiple hidden>
+        </div>
+        <button id="compact" type="button" data-edit>压缩容器</button>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">名字</th><th scope="col">类型</th><th scope="col">大小</th><th scope="col" class="operation">操作</th></tr></thead>
+          <tbody id="entries"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty" hidden>这个目录是空的。</p>
+    </section>
+    <p id="status" role="status" aria-live="polite">正在打开容器…</p>
+    <p class="hint">修改完成后自动提交。目录以 ZIP 下载，快照保留创建时的文件内容。</p>
+  </main>
+</body>
+</html>
